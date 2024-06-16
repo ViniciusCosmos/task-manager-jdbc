@@ -89,9 +89,9 @@ public class TaskDaoJDBC implements TaskDao {
 			int rowsAffected = statement.executeUpdate();
 
 			if (rowsAffected > 0)
-				System.out.println("Item deletado!");
+				System.out.println("Task Deleted!");
 			else
-				System.out.println("Erro inesperado!");
+				System.out.println("Unexpected Error!");
 		} catch (SQLException e) {
 			throw new DbException(e.getMessage());
 		} finally {
@@ -101,25 +101,25 @@ public class TaskDaoJDBC implements TaskDao {
 	}
 
 	@Override
-	public void exibirTabela(String nomeTabela) {
+	public void showTable(String tableName) {
 	    ResultSet rs = null;
 	    PreparedStatement statement = null;
 
 	    try {
-	        if (!nomeTabela.matches("[a-zA-Z_]+")) {
-	            throw new DbException("Nome da tabela inválido");
+	        if (!tableName.matches("[a-zA-Z_]+")) {
+	            throw new DbException("Invalid Table Name! >( ");
 	        }
 
-	        statement = conn.prepareStatement("SELECT * FROM " + nomeTabela);
+	        statement = conn.prepareStatement("SELECT * FROM " + tableName);
 	        rs = statement.executeQuery();
 	        ResultSetMetaData metaData = rs.getMetaData();
-	        int numColunas = metaData.getColumnCount();
+	        int numColumn = metaData.getColumnCount();
 
 	        while (rs.next()) {
 	            StringJoiner joiner = new StringJoiner(" | ");
-	            for (int coluna = 1; coluna <= numColunas; coluna++) {
+	            for (int column = 1; column <= numColumn; column++) {
 	                //int nomeColuna = metaData.getColumnCount();
-	                joiner.add(""+ rs.getObject(coluna));
+	                joiner.add(""+ rs.getObject(column));
 	            }
 	            System.out.println(joiner.toString());
 	        }

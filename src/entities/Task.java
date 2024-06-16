@@ -8,9 +8,18 @@ public class Task{
 	public Task() {	
 	}
 	
+	
 	public Task(String description) {
-		this.description = description; 
+		this.description = description;
 	}
+	
+	public Task(Integer id, String description) {
+		this.description = description;
+		this.id = id;
+	}
+	
+	
+	
 	
 	public Integer getId() {
 		return id;
